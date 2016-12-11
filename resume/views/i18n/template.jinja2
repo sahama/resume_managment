@@ -1,0 +1,38 @@
+{% extends main_template %}
+
+{% block content %}
+{{ _('test') }}
+    <form class="form" method="post" action="{{ request.route_url('translate') }}">
+    <div class="form-group">
+
+         <label>{{ _("new_msgid") }}</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="msgid">
+        </div>
+    </div>
+        <div class="form-group">
+        <label>{{ _("new_msgstr") }}</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="msgstr">
+        </div>
+    </div>
+    <input type="submit" value="submit" name="new_msg" class="btn btn-success form-control">
+    </form>
+    <br>
+    <form class="form" method="post" action="{{ request.route_url('translate') }}">
+    {% for tr in po %}
+    <div class="form-group">
+
+            <label>{{ tr.msgid }}</label>
+
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="{{ tr.msgid }}" value="{{ tr.msgstr }}">
+        </div>
+    </div>
+    {% endfor %}
+    <input type="submit" value="submit" name="update_msg" class="btn btn-success form-control">
+    </form>
+{% endblock content %}
+{% block title %}
+    Translate
+{% endblock %}

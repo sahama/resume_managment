@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale_name }}" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="shortcut icon" type="image/png" href="{{ request.static_url('resume:static/logo.png') }}"/>
+    <link rel="icon" type="image/png" href="{{ request.static_url('resume:static/logo.png') }}"/>
+    <title>{% block title %}{{ _('site_title') }}{% endblock %}</title>
+
+</head>
+<body>
+
+
+<script type="text/javascript" src="{{ request.static_url('resume:static/js/main.js') }}"></script>
+
+
+<link rel="stylesheet" href="{{ request.static_url('resume:static/css/template.css') }}">
+
+<div ng-app="main_app" id="main_div">
+
+{% block navbar %}
+    {{ panel('navbar') }}
+{% endblock %}
+
+
+<div class="container container-viewport">
+    <div class="starter-template">
+
+        {% block flash_message %}
+            {{ panel('flash_message') }}
+        {% endblock %}
+
+
+        {% block page_header %}
+        <div class="page-header">
+            <h3>{{ self.title() }}{% block toolbox %}{% endblock %}</h3>
+
+            <p>{% block comment %}{% endblock %}</p>
+        </div>
+        {% endblock %}
+
+
+        {% block content %}
+            {{ _('no content here') }}
+        {% endblock %}
+    </div>
+
+</div>
+
+
+{% block script %}
+{% endblock %}
+{% block footer %}
+    {{ panel('footer') }}
+{% endblock %}
+    {{ panel('back_to_top') }}
+
+</div>
+</body>
+</html>

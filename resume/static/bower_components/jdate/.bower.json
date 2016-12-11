@@ -1,0 +1,16 @@
+{
+  "name": "jdate",
+  "_cacheHeaders": {
+    "ETag": "\"10cc-5251b22b2cd0c\"",
+    "Last-Modified": "Sun, 22 Nov 2015 06:22:40 GMT",
+    "Content-Length": "4300",
+    "Content-Type": "application/javascript"
+  },
+  "_release": "e-tag:10cc-5251",
+  "main": "index.js",
+  "_source": "http://127.0.0.1/jdate.js",
+  "_target": "*",
+  "_originalSource": "http://127.0.0.1/jdate.js",
+  "_direct": true,
+  "version": "0"
+}

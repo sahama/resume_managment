@@ -1,0 +1,31 @@
+<style>
+    .back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+}
+</style>
+<script>
+$(document).ready(function(){
+     $(window).scroll(function () {
+            if ($(this).scrollTop() > 50) {
+                $('#back-to-top').fadeIn();
+            } else {
+                $('#back-to-top').fadeOut();
+            }
+        });
+        // scroll body to 0px on click
+        $('#back-to-top').click(function () {
+            $('#back-to-top').tooltip('hide');
+            $('body,html').animate({
+                scrollTop: 0
+            }, 200);
+            return false;
+        });
+
+
+});
+</script>
+<a id="back-to-top" href="#" class="btn btn-primary btn-sm back-to-top" role="button" ><span class="glyphicon glyphicon-chevron-up"></span></a>

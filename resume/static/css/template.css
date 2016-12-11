@@ -1,0 +1,296 @@
+body {
+    padding-top: 50px;
+    font-family: "naskh", sans-serif;
+    margin-bottom: 60px; /* for footer*/
+
+}
+
+.page-header {
+    margin-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+
+}
+
+h1, h2, h3 {
+    font-family: "naskh", sans-serif;
+}
+
+/*h1, h2, h3{*/
+/*margin-right: 5pt;*/
+/*margin-left: 5pt;*/
+/*}*/
+
+/*th {*/
+/*text-align: center;*/
+/*}*/
+.starter-template {
+    padding: 15px 15px;
+    /*text-align: center;*/
+
+    font-family: "vazir", "Helvetica Neue", sans-serif;
+
+}
+
+@font-face {
+    font-family: "bbnasim";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../font/nasim.eot") format("eot"), url("../font/nasim.woff") format("woff"), url("../font/nasim.ttf") format("truetype"), url("../font/nasim.svg") format("svg");
+}
+
+@font-face {
+    font-family: "bbyekan";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../font/yekan.eot") format("eot"), url("../font/yekan.woff") format("woff"), url("../font/yekan.ttf") format("truetype"), url("../font/yekan.svg") format("svg");
+}
+
+@font-face {
+    font-family: "naskh";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../font/DroidNaskh-Regular.eot") format("eot"), url("../font/DroidNaskh-Regular.woff") format("woff"), url("../font/DroidNaskh-Regular.ttf") format("truetype"), url("../font/nasim.svg") format("svg");
+}
+
+@font-face {
+    font-family: "vazir";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../font/Vazir.eot") format("eot"), url("../font/Vazir.woff") format("woff"), url("../font/Vazir.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "gandom";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 120%;
+    src: url("../font/Gandom.eot") format("eot"), url("../font/Gandom.woff") format("woff"), url("../font/Gandom.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "mitra";
+    font-style: normal;
+    font-weight: normal;
+    src: url("../font/mitra.ttf") format("truetype");
+}
+
+/*.container {*/
+/*width: auto;*/
+/*}*/
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    min-height: 1px;
+    padding-left: 3px;
+    padding-right: 3px;
+    position: relative;
+}
+
+/*.panel-body {*/
+/*padding: 3px;*/
+/*}*/
+
+.panel {
+    margin-bottom: 10px;
+}
+
+.click-tr:hover {
+    color: gray;
+    cursor: pointer;
+}
+
+.visible-series {
+    color: inherit;
+}
+
+.unvisible-series {
+    color: lightgrey;
+}
+
+/*h1:hover{*/
+/*color: darkgrey;*/
+/*}*/
+.ltr {
+    direction: ltr;
+}
+
+/*footer{*/
+/*padding-top: 100px;*/
+/*text-align: center;*/
+/*}*/
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+footer {
+    font-family: "gandom", "Helvetica Neue", sans-serif;
+
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    /* Set the fixed height of the footer here */
+    height: 41px;
+    background-color: #d0d0d0;
+    font-size: 80%;
+    padding-top: 15px;;
+
+}
+
+footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+footer * > a:link {
+    text-decoration: none;
+}
+
+footer * > a:visited {
+    text-decoration: none;
+}
+
+footer * > a:hover {
+    text-decoration: none;
+}
+
+footer * > a:active {
+    text-decoration: none;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.login {
+    /*margin-top: 0;*/
+    padding-top: 0;
+
+    /*padding-right: 10%;*/
+    /*padding-left: 10%;*/
+    background: #d0d0d0;
+    /*background: url('../back.jpg');*/
+    /*background: url('http://placehold.it/1920x1080') no-repeat center center fixed;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+/*.login-form {*/
+/*padding: 30px 25% 30px 25%;*/
+
+/*}*/
+
+.navbar-right .dropdown-menu {
+    left: auto;
+    right: auto;
+}
+
+.table {
+    table-layout: fixed;
+}
+
+.table td, th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.divider {
+    border-bottom: 1px solid #ccc;
+    height: 200%;
+    margin-bottom: 10px;
+}
+
+.smallfont {
+    font-size: small;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.modal {
+    text-align: center;
+    padding: 0 !important;
+}
+
+.modal:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px; /* Adjusts for spacing */
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+/*.modal-dialog {*/
+/*display: inline-block;*/
+/*text-align: right;*/
+/*vertical-align: middle;*/
+/*}*/
+
+.well {
+    /*!*opacity: 0.8;*!*/
+    background-image: linear-gradient(to bottom, #f3f3f3 0%, #fff 100%);
+    /*margin-bottom: 5px;*/
+    /*padding-bottom: 10px;*/
+    /*padding-top: 5px;*/
+    /*!*background-repeat: repeat-x;*!*/
+    /*!*border-color: #dcdcdc;*!*/
+    /*!*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) inset, 0 1px 0 rgba(255, 255, 255, 0.1);*!*/
+
+    /*!*background-color: #f5f5f5;*!*/
+    /*!*border: 1px solid #e3e3e3;*!*/
+    /*!*border-radius: 4px;*!*/
+    /*!*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;*!*/
+    /*!*margin-bottom: 20px;*!*/
+    /*!*min-height: 20px;*!*/
+    /*!*padding: 19px;*!*/
+}
+.alert-small {
+    /*border: 1px solid transparent;*/
+    /*border-radius: 4px;*/
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+/*.panel-heading {*/
+    /*!*border-bottom: 1px solid transparent;*!*/
+    /*!*border-top-left-radius: 3px;*!*/
+    /*!*border-top-right-radius: 3px;*!*/
+    /*padding: 5px 10px;*/
+/*}*/
+.result-title {
+    text-align: center;
+}
+
+.mitra{
+    font-family: "mitra";
+}
+
+textarea { resize: vertical; }
+
+.label {
+    border: 1px solid black;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
