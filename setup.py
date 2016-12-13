@@ -13,10 +13,14 @@ requires = [
     'pyramid_chameleon',
     'pyramid_debugtoolbar',
     'pyramid_tm',
-    'pyramid_zodbconn',
     'transaction',
-    'ZODB3',
     'waitress',
+    'pyramid_jinja2',
+    'pyramid_bowerstatic',
+    'pyramid_layout',
+    'mongoengine',
+    'deform',
+    'polib',
     ]
 
 tests_require = [

@@ -10,6 +10,7 @@ def regsiter_view(context, request):
     class Register(colander.Schema):
         username = colander.SchemaNode(colander.String(), title="User Name")
         password = colander.SchemaNode(colander.String(), title="Password")
+        email = colander.SchemaNode(colander.String(), title="Email")
 
     class MainSchema(colander.MappingSchema):
         register = Register(title='Register')
@@ -27,11 +28,26 @@ def regsiter_view(context, request):
 
         try:
             appstruct = form.validate(controls)
-            print(appstruct)
+            # print(appstruct)
 
 
         except:
             appstruct = None
             print('no validate')
+        if appstruct:
+            old_usernames = User.objects(username=appstruct['register']['username'])
+            old_emails = User.objects(email=appstruct['register']['email'])
+            print('username', old_usernames)
+            print('email', old_emails)
+            if not old_usernames and not old_emails:
+                user = User()
+                user.username = appstruct['register']['username']
+                user.email = appstruct['register']['email']
+                user.password = appstruct['register']['password']
+                user.mobile = '123'
+
+                user.save()
+    for i in User.objects:
+        print(i.username)
 
     return {'project': 'resume', 'form': form}

@@ -1,4 +1,4 @@
 import os
-here = os.path.abspath(os.path.dirname(__file__))
-root = os.path.abspath(os.path.dirname(here))
+
+root = os.path.abspath(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 base = os.path.abspath(os.path.dirname(root))
