@@ -31,7 +31,7 @@ def menu(context, request):
 
     items = []
     items.append(nav_item('first_menu', '#', [nav_item(name, request.route_path(name)) for name in ['home']]))
-    items.append(nav_item('second_menu', '#', [nav_item(name, request.route_path(name)) for name in ['translate']]))
+    items.append(nav_item('second_menu', '#', [nav_item(name, request.route_path(name)) for name in ['register']]))
 
     return {'items': items}
 

@@ -37,7 +37,7 @@ class RootFactory(object):
         self.request = request
         mongodb_url = request.registry.settings.get('mongodb.uri')
         if mongodb_url:
-            connect(mongodb_url)
+            connect(host=mongodb_url)
 
         request.include(components, 'jquery')
         request.include(components, 'bootstrap')
