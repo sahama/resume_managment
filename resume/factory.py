@@ -45,6 +45,7 @@ class RootFactory(object):
         request.include(components, 'angular')
         request.include(components, 'jquery-ui')
 
+        request.include(components, 'bootstrap')
         request.include(components, 'bootstrap-rtl')
 
 
