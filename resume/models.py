@@ -1,5 +1,5 @@
 from mongoengine import *
-
+GENDER = ('Male', 'Female')
 class User(Document):
     email = StringField(max_length=200, required=True)
     username = StringField(max_length=200, required=True)
@@ -26,11 +26,11 @@ class User(Document):
 class Resume(Document):
     firstname = StringField(max_length=200, required=True)
     lastname = StringField(max_length=200, required=True)
-    birthday = StringField(max_length=30, required=True)#خودش سه تا فیلد داره
+    birthday = DateTimeField()
     nationality = StringField(max_length=50, required=True)
-    gender = StringField(max_length=10, required=True)#انتخاب
-    mobile_number =StringField(max_length=20, required=True)#integer
-    phone_number = StringField(max_length=20, required=True)#integer
+    gender = StringField(max_length=2, choices=GENDER)#انتخاب
+    mobile_number =IntField(max_length=20, required=True)#integer
+    phone_number = IntField(max_length=20, required=True)#integer
     education = StringField(max_length=500)
     languages = StringField(max_length=60)
     job_history = StringField(max_length=500)
