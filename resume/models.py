@@ -1,5 +1,7 @@
 from mongoengine import *
-
+PROFS={'Expert','Professional','Geek','Beginner'}
+INTERESTS={'Love it', 'Some how' , 'A Bit' , 'Just for Business'}
+STATUS={'Married' , 'Single'}
 class User(Document):
     email = StringField(max_length=200, required=True)
     username = StringField(max_length=200, required=True)
@@ -30,7 +32,29 @@ class ResumeField(EmbeddedDocument):
     # def data(self):
     #     raise NotImplemented
 
+class SelfSkills(ResumeField):
+    method_of_introduction=StringField(max_length=64, required=True)
+    proficiency=StringField(max_length=4, choices=PROFS)
+    #عنوان مهارت نحوه آشنایی میزان آشنایی
 
+class EducationCourses(ResumeField):
+    institute=StringField(max_length=64, required=True)
+    duration_of_course=IntField()#(ساعت(
+#نام دوره نام موسسه برگزار کننده مدت دوره(ساعت)
+
+class JobSkills(ResumeField):
+    interest_rate=StringField(max_length=4, choices=INTERESTS)
+    proficiency=StringField(max_length=4, choices=PROFS)
+
+class PrivateInfos(ResumeField):
+    first_name = StringField(max_length=200, required=True)
+    middle_name = StringField(max_length=200, required=True)
+    last_name = StringField(max_length=200, required=True)
+    birthday = DateTimeField()
+    nationality = StringField(max_length=50, required=True)
+    gender = StringField(max_length=2, choices=GENDER)#انتخاب
+    maritalـstatus =StringField(max_length=2, choices=STATUS)
+    phone = ListField(EmbeddedDocumentField(Phone)) # phone is not translatable
 
 class Phone(ResumeField):
     number = StringField(max_length=200, required=True)
@@ -52,18 +76,15 @@ class JobHistory(ResumeField):
 
 GENDER = ('Male', 'Female')
 class Resume(Document):
-    first_name = StringField(max_length=200, required=True)
-    middle_name = StringField(max_length=200, required=True)
-    last_name = StringField(max_length=200, required=True)
-    birthday = DateTimeField()
-    nationality = StringField(max_length=50, required=True)
-    gender = StringField(max_length=2, choices=GENDER)#انتخاب
-    phone = ListField(EmbeddedDocumentField(Phone)) # phone is not translatable
 
+    private_infos=ListField(EmbeddedDocumentField(PrivateInfos))
     education = ListField(EmbeddedDocumentField(Education))
     languages = ListField(EmbeddedDocumentField(Language))
     job_history = ListField(EmbeddedDocumentField(JobHistory))
+    self_skills=ListField(EmbeddedDocumentField(SelfSkills))
+    job_skills=ListField(EmbeddedDocumentField(JobSkills))
     favorites = ListField(StringField(max_length=300))
+
 
     #نام:
    # نام خانوادگی:
