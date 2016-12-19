@@ -1,5 +1,5 @@
 from mongoengine import *
-GENDER = ('Male', 'Female')
+
 class User(Document):
     email = StringField(max_length=200, required=True)
     username = StringField(max_length=200, required=True)
@@ -9,28 +9,61 @@ class User(Document):
 
     @property
     def password(self):
-        return 'password should be hashed in database'
+        return 'password should be hashed in database and can not recover'
 
     @password.setter
     def password(self, new_password):
-        # TODO: using a method to hashing password in database
-        self._password = new_password
+        self._password = self.hash(new_password)
 
     def check_password(self, new_password):
-        return self._password == new_password
+        return self._password == self.hash(new_password)
 
+    @classmethod
+    def hash(cls, password):
+        # TODO: hash password geted as arg
+        return password
+
+class ResumeField(EmbeddedDocument):
+    title = StringField(max_length=64, required=True)
+
+    # @property
+    # def data(self):
+    #     raise NotImplemented
+
+
+
+class Phone(ResumeField):
+    number = StringField(max_length=200, required=True)
+
+class Email(ResumeField):
+    address = StringField(max_length=200, required=True)
+
+class Education(ResumeField):
+    degree = StringField(max_length=200, required=True)
+    field = StringField(max_length=200, required=True)
+
+class Language(ResumeField):
+    level = IntField(min_value=1, max_value=5)
+
+class JobHistory(ResumeField):
+    company = StringField(max_length=200, required=True)
+    from_date = DateTimeField()
+    to_date = DateTimeField()
+
+GENDER = ('Male', 'Female')
 class Resume(Document):
-    firstname = StringField(max_length=200, required=True)
-    lastname = StringField(max_length=200, required=True)
+    first_name = StringField(max_length=200, required=True)
+    middle_name = StringField(max_length=200, required=True)
+    last_name = StringField(max_length=200, required=True)
     birthday = DateTimeField()
     nationality = StringField(max_length=50, required=True)
     gender = StringField(max_length=2, choices=GENDER)#انتخاب
-    mobile_number =IntField(max_length=20, required=True)#integer
-    phone_number = IntField(max_length=20, required=True)#integer
-    education = StringField(max_length=500)
-    languages = StringField(max_length=60)
-    job_history = StringField(max_length=500)
-    favorites = StringField(max_length=300)
+    phone = ListField(EmbeddedDocumentField(Phone)) # phone is not translatable
+
+    education = ListField(EmbeddedDocumentField(Education))
+    languages = ListField(EmbeddedDocumentField(Language))
+    job_history = ListField(EmbeddedDocumentField(JobHistory))
+    favorites = ListField(StringField(max_length=300))
 
     #نام:
    # نام خانوادگی:
