@@ -1,0 +1,99 @@
+{% extends main_template %}
+
+
+{% block navbar %}
+{% endblock %}
+
+{% block flash_message %}
+
+{% endblock %}
+
+{% block page_header %}
+
+{% endblock %}
+
+{% block footer %}
+
+{% endblock %}
+
+
+{% block title %}
+    {{ _('login') }}
+{% endblock %}
+
+
+
+{% block content %}
+        {% for css in form.get_widget_resources()['css'] %}
+        <link rel="stylesheet" href="{{ request.static_url(css) }}" type="text/css" />
+    {% endfor %}
+
+
+    {% for js in form.get_widget_resources()['js'] %}
+        <script type="text/javascript" src="{{ request.static_url(js) }}"></script>
+    {% endfor %}
+
+    <style>
+        #login {
+            background-color: #d0d0d0;
+            float: right;
+        }
+
+        body {
+            background-image: url({{ request.static_url('resume:static/back_login.jpg') }});
+        {#            background-size:cover;#} background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+
+        {#            background: url("bg.jpg");#}{#            background-color: #00b3ee;#}
+        }
+    </style>
+    <div class="login-form">
+        {{ panel('flash_message') }}
+
+        <div class="panel panel-default" id="login">
+            <div class="panel-body">
+                <div class="page-header">
+                    <h1>{{ self.title() }}{% block toolbox %}{% endblock %}</h1>
+
+                    <p>{% block comment %}{% endblock %}</p>
+                </div>
+
+
+                <form class="" method="POST" class="form" role="form" action="{{ request.route_path('login') }}">
+                    <input name="referer" value="{{ referer }}" type="hidden">
+
+                    <div class="form-group">
+                        <label for="inputUsername" class="sr-only">{{ _('email') }}</label>
+                        <input type="text" name="email" id="inputUsername" class="form-control ltr"
+                               placeholder="{{ _('email') }}" required
+                               autofocus>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="sr-only">{{ _('password') }}</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control ltr"
+                               placeholder="{{ _('password') }}" required>
+                    </div>
+{#                    <div class="form-group">#}
+{#                        <select class="form-control" id="lang" name="lang">#}
+{#                            <option value="fa">{{ _('farsi') }}</option>#}
+{#                            <option value="en">{{ _('english') }}</option>#}
+{#                        </select>#}
+{#                    </div>#}
+                    <div class="form-group">
+                        <button name="submit" class="btn btn-success btn-block" type="submit">{{ _('login') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {#<footer class="footer">#}
+    {#    <div class="container">#}
+    {#        <div class="text-muted footer-body"> {{ _('footer')|safe }} </div>#}
+    {#        <div class="text-muted version-body"> {{ _('version') }}: {{ context.version }} </div>#}
+    {#    </div>#}
+    {#</footer>#}
+{% endblock %}
+

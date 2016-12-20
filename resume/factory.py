@@ -11,15 +11,13 @@ def group_finder(userid, request):
 
     groups = []
     if userid:
-        user = User.objects(username = userid)
-        print(user)
+        user = User.objects(id=userid)
         # user = request.dbsession.query(User).filter_by(username = userid).one()
-        groups = user.groups
+        groups = user[0].groups
     return groups
 
 
 
-from mongoengine import connect
 
 components = pyramid_bowerstatic.create_components(
     'resume',
@@ -35,9 +33,7 @@ class RootFactory(object):
 
     def __init__(self, request):
         self.request = request
-        mongodb_url = request.registry.settings.get('mongodb.uri')
-        if mongodb_url:
-            connect(host=mongodb_url)
+
 
         request.include(components, 'jquery')
         request.include(components, 'bootstrap')

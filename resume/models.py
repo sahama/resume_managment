@@ -1,8 +1,9 @@
 from mongoengine import *
 
+
 class User(Document):
     email = StringField(max_length=200, required=True)
-    username = StringField(max_length=200, required=True)
+    # username = StringField(max_length=200, required=True)
     _password = StringField(max_length=200, required=True)
     mobile = StringField(max_length=200, required=True)
     groups = ListField(StringField(max_length=30))
@@ -16,6 +17,7 @@ class User(Document):
         self._password = self.hash(new_password)
 
     def check_password(self, new_password):
+        print(new_password, self._password)
         return self._password == self.hash(new_password)
 
     @classmethod
@@ -26,6 +28,7 @@ class User(Document):
 class ResumeField(EmbeddedDocument):
     title = StringField(max_length=64, required=True)
 
+    meta = {'allow_inheritance': True}
     # @property
     # def data(self):
     #     raise NotImplemented
@@ -65,16 +68,8 @@ class Resume(Document):
     job_history = ListField(EmbeddedDocumentField(JobHistory))
     favorites = ListField(StringField(max_length=300))
 
-    #نام:
-   # نام خانوادگی:
-    #تاریخ تولد:
-#محل تولد
-#جنسیت:
-#شماره تلفن همراه:
-#تلفن محل سکونت:#
-#تحصیلات
-#زبان ها
-#سوابق شغلی
-#زمینه های کاری (تخصص / علایق):
 
-
+def includeme(config):
+    settings = config.get_settings()
+    mongodb_url = settings.get('mongodb.uri')
+    connect(host=mongodb_url)
