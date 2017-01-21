@@ -2,9 +2,9 @@ from mongoengine import *
 PROFS={'Expert','Professional','Geek','Beginner'}
 INTERESTS={'Love it', 'Some how' , 'A Bit' , 'Just for Business'}
 STATUS={'Married' , 'Single'}
+
 class User(Document):
     email = StringField(max_length=200, required=True)
-    username = StringField(max_length=200, required=True)
     _password = StringField(max_length=200, required=True)
     mobile = StringField(max_length=200, required=True)
     groups = ListField(StringField(max_length=30))
@@ -28,6 +28,7 @@ class User(Document):
 class ResumeField(EmbeddedDocument):
     title = StringField(max_length=64, required=True)
 
+    meta = {'allow_inheritance': True}
     # @property
     # def data(self):
     #     raise NotImplemented
@@ -76,6 +77,13 @@ class JobHistory(ResumeField):
 
 GENDER = ('Male', 'Female')
 class Resume(Document):
+    first_name = StringField(max_length=200, required=True)
+    middle_name = StringField(max_length=200, required=True)
+    last_name = StringField(max_length=200, required=True)
+    birthday = DateTimeField()
+    nationality = StringField(max_length=50, required=True)
+    gender = StringField(max_length=2, choices=GENDER)#انتخاب
+    phone = ListField(EmbeddedDocumentField(Phone)) # phone is not translatable
 
     private_infos=ListField(EmbeddedDocumentField(PrivateInfos))
     education = ListField(EmbeddedDocumentField(Education))
@@ -86,16 +94,7 @@ class Resume(Document):
     favorites = ListField(StringField(max_length=300))
 
 
-    #نام:
-   # نام خانوادگی:
-    #تاریخ تولد:
-#محل تولد
-#جنسیت:
-#شماره تلفن همراه:
-#تلفن محل سکونت:#
-#تحصیلات
-#زبان ها
-#سوابق شغلی
-#زمینه های کاری (تخصص / علایق):
-
-
+def includeme(config):
+    settings = config.get_settings()
+    mongodb_url = settings.get('mongodb.uri')
+    connect(host=mongodb_url)
