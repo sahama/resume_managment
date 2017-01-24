@@ -1,0 +1,6 @@
+{% extends main_template %}
+{% block content %}
+{% for user in users %}
+    <a href="{{ request.route_url('resume_view', id=user.id) }}"> {{ user.id }}</a> - {{ user.email }}
+    {% endfor %}
+{% endblock %}

@@ -28,7 +28,7 @@ h1, h2, h3 {
     padding: 15px 15px;
     /*text-align: center;*/
 
-    font-family: "vazir", "Helvetica Neue", sans-serif;
+    font-family: "bbnasim", "Helvetica Neue", sans-serif;
 
 }
 
@@ -36,6 +36,7 @@ h1, h2, h3 {
     font-family: "bbnasim";
     font-style: normal;
     font-weight: normal;
+    font-size: 200%;
     src: url("../font/nasim.eot") format("eot"), url("../font/nasim.woff") format("woff"), url("../font/nasim.ttf") format("truetype"), url("../font/nasim.svg") format("svg");
 }
 

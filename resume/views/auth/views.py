@@ -1,4 +1,4 @@
-from pyramid.view import view_config
+from pyramid.view import view_config, forbidden_view_config
 from resume.models import User
 import colander
 import deform
@@ -12,7 +12,7 @@ from pyramid.security import (
 
 
 
-@view_config(route_name='register', renderer='templates/register.jinja2')
+@view_config(route_name='register', renderer='templates/register.jinja2', permission='view')
 def regsiter_view(context, request):
 
     class Register(colander.Schema):
@@ -59,8 +59,8 @@ def regsiter_view(context, request):
 
     return {'project': 'resume', 'form': form}
 
-
-@view_config(route_name='login', renderer='templates/login.jinja2')
+@forbidden_view_config(renderer='templates/login.jinja2')
+@view_config(route_name='login', renderer='templates/login.jinja2', permission='view')
 def login_view(context, request):
 
     class Login(colander.Schema):
@@ -106,8 +106,10 @@ def login_view(context, request):
     return {'form': form}
 
 
-@view_config(route_name='logout')
+@view_config(route_name='logout', permission='view')
 def logout_view(context, request):
     headers = forget(request)
     request.session.invalidate()
     return HTTPFound(location=request.route_url('home'), headers=headers)
+
+

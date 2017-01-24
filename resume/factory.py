@@ -1,10 +1,11 @@
-from pyramid.security import Allow, Everyone, Deny, authenticated_userid
+from pyramid.security import Allow, Everyone, Deny, Authenticated, authenticated_userid
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.authentication import SessionAuthenticationPolicy
 from .models import User
 from pyramid.session import SignedCookieSessionFactory
 import pyramid_bowerstatic
 import os
+from pyramid.request import Request
 
 
 def group_finder(userid, request):
@@ -27,12 +28,14 @@ components = pyramid_bowerstatic.create_components(
 class RootFactory(object):
 
     __acl__ = [(Allow, Everyone, 'view'),
-               (Allow, 'users', 'user'),
-               (Allow, 'admins', 'admin'),
+               (Allow, Authenticated, 'user'),
+               (Allow, 'admins', ['admin','user']),
                ]
 
-    def __init__(self, request):
+    def __init__(self, request: Request):
         self.request = request
+        user = User.objects(id=request.authenticated_userid)
+        self.request.user = user[0]
 
 
         request.include(components, 'jquery')
@@ -55,4 +58,4 @@ def includeme(config):
     config.set_session_factory(session_factory)
     config.set_authentication_policy(authn_policy)
     config.set_authorization_policy(authz_policy)
-    config.set_default_permission('view')
+    config.set_default_permission('user')
