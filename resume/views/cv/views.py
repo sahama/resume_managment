@@ -21,6 +21,8 @@ def resume_view(context, request: Request):
 
 @view_config(route_name='resume_edit', renderer='edit.jinja2', permission='user')
 def resume_edit(context, request: Request):
+    sample_appstruct={'resume_form': {'last_name': 'مهدوی', 'mobile': '09106853582', 'password': '1', 'email': 's.h.mahdavi@chmail.ir', 'first_name': 'سید حمید'}, 'educations': [{'degree': 'dr', 'school': 'fdsa'}, {'degree': 'fdsfdsa', 'school': 'dd'}]}
+
     class ResumeForm(colander.Schema):
         email = colander.SchemaNode(colander.String(), title="Email")
         password = colander.SchemaNode(colander.String(), title="Password")
@@ -39,7 +41,7 @@ def resume_edit(context, request: Request):
 
     class MainSchema(colander.MappingSchema):
         resume_form = ResumeForm(title='Resume')
-        educations = Educations(title='Educations')
+        educations = Educations(widget=deform.widget.SequenceWidget(orderable=True), title='Educations')
 
     def validator(node, appstruct):
         return True
@@ -49,14 +51,13 @@ def resume_edit(context, request: Request):
     form = deform.Form(schema, use_ajax=False, action=request.route_url('resume_edit'))
     form.buttons.append(deform.Button(name='submit', title='submit'))
 
-    print(dir(form))
 
     if request.POST:
         controls = request.POST.items()
 
         try:
             appstruct = form.validate(controls)
-            # print(appstruct)
+            print(appstruct)
 
 
         except:
@@ -67,5 +68,5 @@ def resume_edit(context, request: Request):
     user = request.user
 
 
-    return {'user': user, 'form': form}
+    return {'user': user, 'form': form, 'appstruct': sample_appstruct}
 
