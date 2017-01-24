@@ -35,7 +35,11 @@ class RootFactory(object):
     def __init__(self, request: Request):
         self.request = request
         if request.authenticated_userid:
-            user = User.objects(id=request.authenticated_userid)[0]
+            users = User.objects(id=request.authenticated_userid)
+            if users:
+                user = users[0]
+            else:
+                user = None
         else:
             user = None
         self.request.user = user

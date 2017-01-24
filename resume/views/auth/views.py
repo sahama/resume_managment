@@ -91,7 +91,7 @@ def login_view(context, request):
             print('no validate')
         if appstruct:
             user = User.objects(email=appstruct['login']['email'])
-            if user[0].check_password(appstruct['login']['password']):
+            if user and user[0].check_password(appstruct['login']['password']):
                 request.message.add('login')
 
                 headers = remember(request, user[0].id)
