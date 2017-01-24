@@ -53,9 +53,6 @@ def regsiter_view(context, request):
             else:
                 request.message.add('this email address already token')
 
-    for i in User.objects:
-        print(dir(i))
-        print(i.id)
 
     return {'project': 'resume', 'form': form}
 
@@ -94,7 +91,7 @@ def login_view(context, request):
             if user and user[0].check_password(appstruct['login']['password']):
                 request.message.add('login')
 
-                headers = remember(request, user[0].id)
+                headers = remember(request, str(user[0].id))
             else:
                 headers = forget(request)
                 request.message.add('not login')

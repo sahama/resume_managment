@@ -6,12 +6,12 @@ from bson import objectid
 class Factory(RootFactory):
     @property
     def __acl__(self):
-        owner = objectid.ObjectId(self.request.matchdict['id'])
-        userid = self.request.authenticated_userid
-        print(type(owner))
-        print(type(userid))
-
-        print(owner == userid)
+        owner = self.request.matchdict['id']
+        # userid = self.request.authenticated_userid
+        # print(type(owner))
+        # print(type(userid))
+        #
+        # print(owner == userid)
         # if owner == user_id:
         return [(Allow, owner, 'edit') ]
         # else:
