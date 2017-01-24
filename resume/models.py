@@ -1,13 +1,32 @@
 from mongoengine import *
-PROFS={'Expert','Professional','Geek','Beginner'}
-INTERESTS={'Love it', 'Some how' , 'A Bit' , 'Just for Business'}
-STATUS={'Married' , 'Single'}
 
 class User(Document):
     email = StringField(max_length=200, required=True)
     _password = StringField(max_length=200, required=True)
     mobile = StringField(max_length=200, required=True)
     groups = ListField(StringField(max_length=30))
+    __gender = StringField(max_length=1)
+    first_name = StringField(max_length=16)
+    last_name = StringField(max_length=16)
+
+
+    @property
+    def gender(self):
+        if self.__gender == 'm':
+            return 'male'
+        if self.__gender == 'f':
+            return 'female'
+
+        return ''
+
+    @gender.setter
+    def gender_setter(self, g):
+        if g == 'male':
+            self.__gender = 'm'
+        elif g == 'female':
+            self.__gender = 'f'
+        return self.__gender
+
 
     @property
     def password(self):

@@ -34,8 +34,11 @@ class RootFactory(object):
 
     def __init__(self, request: Request):
         self.request = request
-        user = User.objects(id=request.authenticated_userid)
-        self.request.user = user[0]
+        if request.authenticated_userid:
+            user = User.objects(id=request.authenticated_userid)[0]
+        else:
+            user = None
+        self.request.user = user
 
 
         request.include(components, 'jquery')
