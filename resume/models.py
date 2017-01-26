@@ -20,14 +20,18 @@ class Experience(EmbeddedDocument):
 class User(Document):
     email = StringField(max_length=200, required=True, unique=True)
     __password = StringField(max_length=200, required=True)
-    mobile = StringField(max_length=200, required=True)
+    mobile = StringField(max_length=200)
     groups = ListField(StringField(max_length=30))
     gender = StringField(max_length=7)
     first_name = StringField(max_length=16)
     last_name = StringField(max_length=16)
-    educations = ListField(EmbeddedDocumentField(Education))
-    skills = ListField(EmbeddedDocumentField(Skill))
-    experiences = ListField(EmbeddedDocumentField(Experience))
+    # educations = ListField(EmbeddedDocumentField(Education))
+    # skills = ListField(EmbeddedDocumentField(Skill))
+    # experiences = ListField(EmbeddedDocumentField(Experience))
+
+    educations = ListField(DictField())
+    skills = ListField(DictField())
+    experiences = ListField(DictField())
 
 
 

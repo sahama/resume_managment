@@ -1,5 +1,4 @@
 {% extends main_template %}
 {% block content %}
-{#{{ form.render(appstruct, readonly=True) | safe }}#}
-{{ form.render(appstruct) | safe }}
+{{ form.render(user_data) | safe }}
 {% endblock %}

@@ -1,5 +1,5 @@
 from pyramid.view import view_config
-from resume.models import User
+from resume.models import User, Education, Skill, Experience
 import colander
 import deform
 import json
@@ -46,7 +46,7 @@ def profile_view(context, request):
         if appstruct:
 
             user = request.user
-            user.to_mongo(appstruct)
+            # user.to_mongo(appstruct)
             user.email = appstruct['profile']['email']
             user.first_name = appstruct['profile']['first_name']
             user.last_name = appstruct['profile']['last_name']
@@ -55,7 +55,7 @@ def profile_view(context, request):
             user.gender = appstruct['profile']['gender']
 
             user.save()
-            request.message.add('your registration complete')
+            request.message.add('complete')
 
     user_data_json = request.user.to_json()
     user_data = {'profile': json.loads(user_data_json)}

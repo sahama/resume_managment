@@ -1,6 +1,25 @@
 {% extends main_template %}
 {% block content %}
-{% for user in users %}
-    <a href="{{ request.route_url('resume_view', id=user.id) }}"> {{ user.id }}</a> - {{ user.email }}
-    {% endfor %}
+    <table class="table">
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>
+                    <a href="{{ request.route_url('resume_view', id=user.id) }}"> {{ user.first_name + ' ' + user.last_name }}</a>
+                </td>
+                <td>
+                    {{ user.email }}
+                </td>
+            </tr>
+{#            <a href="{{ request.route_url('resume_view', id=user.id) }}"> {{ user.id }}</a> - {{ user.email }}#}
+        {% endfor %}
+    </table>
 {% endblock %}
