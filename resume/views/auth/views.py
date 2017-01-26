@@ -47,7 +47,6 @@ def regsiter_view(context, request):
                 user = User()
                 user.email = appstruct['register']['email']
                 user.password = appstruct['register']['password']
-                user.mobile = '123'
                 user.save()
                 request.message.add('your registration complete')
             else:

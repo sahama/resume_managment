@@ -8,6 +8,8 @@ from .resource import Factory
 @view_config(route_name='resume_list', renderer='list.jinja2')
 def resume_list(context, request: Request):
     users = [user for user in User.objects]
+    # for i in User.objects:
+    #     i.delete()
 
     return {'users': users}
 

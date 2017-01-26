@@ -32,7 +32,8 @@ def menu(context, request):
     items = []
     # items.append(nav_item('resume', '#', [nav_item(name, request.route_path(name)) for name in ['resume_list','resume_edit']]))
     items.append(nav_item('resume', '#',
-                          [nav_item('resume_list', request.route_path('resume_list')),
+                          [nav_item('edit_profile', request.route_path('edit_profile')),
+                          nav_item('resume_list', request.route_path('resume_list')),
                           nav_item('resume_edit', request.route_path('resume_edit', id=request.authenticated_userid))] ))
     items.append(nav_item('user_manu', '#', [nav_item(name, request.route_path(name)) for name in ['login','logout','register']]))
 

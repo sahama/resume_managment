@@ -1,49 +1,76 @@
 from mongoengine import *
 
+class Education(EmbeddedDocument):
+    school = StringField(max_length=16)
+    degree = StringField(max_length=16)
+    field = StringField(max_length=16)
+
+
+class Skill(EmbeddedDocument):
+    title = StringField(max_length=16)
+
+
+class Experience(EmbeddedDocument):
+    title = StringField(max_length=16)
+    company = StringField(max_length=16)
+    from_date = DateTimeField()
+    to_date = DateTimeField()
+
+
 class User(Document):
-    email = StringField(max_length=200, required=True)
-    _password = StringField(max_length=200, required=True)
+    email = StringField(max_length=200, required=True, unique=True)
+    __password = StringField(max_length=200, required=True)
     mobile = StringField(max_length=200, required=True)
     groups = ListField(StringField(max_length=30))
-    __gender = StringField(max_length=1)
+    gender = StringField(max_length=7)
     first_name = StringField(max_length=16)
     last_name = StringField(max_length=16)
+    educations = ListField(EmbeddedDocumentField(Education))
+    skills = ListField(EmbeddedDocumentField(Skill))
+    experiences = ListField(EmbeddedDocumentField(Experience))
 
 
-    @property
-    def gender(self):
-        if self.__gender == 'm':
-            return 'male'
-        if self.__gender == 'f':
-            return 'female'
 
-        return ''
-
-    @gender.setter
-    def gender_setter(self, g):
-        if g == 'male':
-            self.__gender = 'm'
-        elif g == 'female':
-            self.__gender = 'f'
-        return self.__gender
+    # @property
+    # def gender(self):
+    #     if self.__gender == 'm':
+    #         return 'male'
+    #     if self.__gender == 'f':
+    #         return 'female'
+    #
+    #     return 'non'
+    #
+    # @gender.setter
+    # def gender_setter(self, g):
+    #     if g == 'male':
+    #         self.__gender = 'm'
+    #     elif g == 'female':
+    #         self.__gender = 'f'
+    #     return self.__gender
 
 
     @property
     def password(self):
         # return 'password should be hashed in database and can not recover'
-        return self._password
+        return self.__password
 
     @password.setter
     def password(self, new_password):
-        self._password = self.hash(new_password)
+        if new_password:
+            self.__password = self.hash(new_password)
 
     def check_password(self, new_password):
-        return self._password == self.hash(new_password)
+        return self.__password == self.hash(new_password)
 
     @classmethod
     def hash(cls, password):
         # TODO: hash password geted as arg
         return password
+
+
+
+
+
 
 # class ResumeField(EmbeddedDocument):
 #     title = StringField(max_length=64, required=True)
