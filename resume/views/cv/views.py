@@ -40,7 +40,7 @@ class ResemeView():
             email = colander.SchemaNode(colander.String(), title="Email")
             first_name = colander.SchemaNode(colander.String(), title="First Name")
             last_name = colander.SchemaNode(colander.String(), title="last Name")
-            mobile = colander.SchemaNode(colander.String(), title="Mobile")
+            mobile = colander.SchemaNode(colander.String(), title="Mobile", missing='')
 
             educations = Educations(widget=deform.widget.SequenceWidget(orderable=True), title='Educations')
             skills = Skills(widget=deform.widget.SequenceWidget(orderable=True), title='Skills')
