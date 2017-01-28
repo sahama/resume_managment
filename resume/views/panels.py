@@ -1,7 +1,7 @@
 from pyramid_layout.panel import panel_config
 from resume.libs.path import base
 from os.path import join
-
+from ..models import User
 
 @panel_config(name='navbar', renderer='templates/panels/navbar.jinja2')
 def navbar(context, request):
@@ -35,7 +35,11 @@ def menu(context, request):
                           [nav_item('edit_profile', request.route_path('edit_profile')),
                           nav_item('resume_list', request.route_path('resume_list')),
                           nav_item('resume_edit', request.route_path('resume_edit', id=request.authenticated_userid))] ))
-    items.append(nav_item('user_manu', '#', [nav_item(name, request.route_path(name)) for name in ['login','logout','register']]))
+    if not request.authenticated_userid:
+        items.append(nav_item('user_manu', '#', [nav_item(name, request.route_path(name)) for name in ['login','register']]))
+    else:
+        items.append(nav_item('logout {}'.format(User.objects(id=request.authenticated_userid).first().first_name),
+                              request.route_path('logout')) )
 
     return {'items': items}
 
