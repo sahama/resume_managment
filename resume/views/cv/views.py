@@ -5,6 +5,7 @@ import colander
 import deform
 from .resource import Factory
 import json
+from deform import widget
 
 
 @view_defaults()
@@ -36,24 +37,51 @@ class ResemeView():
         class Experiences(colander.SequenceSchema):
             experiences = Experience()
 
-        class ResumeForm(colander.Schema):
+        class ResumeFormEdit(colander.Schema):
             email = colander.SchemaNode(colander.String(), title="Email")
             first_name = colander.SchemaNode(colander.String(), title="First Name")
             last_name = colander.SchemaNode(colander.String(), title="last Name")
             mobile = colander.SchemaNode(colander.String(), title="Mobile", missing='')
+            summary = colander.SchemaNode(
+                colander.String(),
+                widget=widget.RichTextWidget(options={"mode": "exact", "plugins": [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table contextmenu paste code'
+                ],}),
+                description='Enter Summery')
+
+            # summary_view = colander.SchemaNode(colander.String(), title="", missing='', readonly=True)
 
             educations = Educations(widget=deform.widget.SequenceWidget(orderable=True), title='Educations')
             skills = Skills(widget=deform.widget.SequenceWidget(orderable=True), title='Skills')
             experiences = Experiences(widget=deform.widget.SequenceWidget(orderable=True), title='Experiences')
 
-        class MainSchema(colander.MappingSchema):
-            resume_form = ResumeForm(title='Resume')
+        class ResumeFormView(colander.Schema):
+            email = colander.SchemaNode(colander.String(), title="Email")
+            first_name = colander.SchemaNode(colander.String(), title="First Name")
+            last_name = colander.SchemaNode(colander.String(), title="last Name")
+            mobile = colander.SchemaNode(colander.String(), title="Mobile", missing='')
+            summary = colander.SchemaNode(colander.String(), title="Summary", missing='')
+
+
+            educations = Educations(widget=deform.widget.SequenceWidget(orderable=True), title='Educations')
+            skills = Skills(widget=deform.widget.SequenceWidget(orderable=True), title='Skills')
+            experiences = Experiences(widget=deform.widget.SequenceWidget(orderable=True), title='Experiences')
+
+        class EditSchema(colander.MappingSchema):
+            resume_form = ResumeFormEdit(title='Resume')
+
+        class ViewSchema(colander.MappingSchema):
+            resume_form = ResumeFormView(title='Resume')
 
         def validator(node, appstruct):
             return True
 
-        self.schema = MainSchema(validator=validator)
-        self.schema = self.schema.bind(request=request)
+        self.view_schema = ViewSchema(validator=validator)
+        self.edit_schema = EditSchema(validator=validator)
+        self.view_schema = self.view_schema.bind(request=request)
+        self.edit_schema = self.edit_schema.bind(request=request)
 
     @view_config(route_name='resume_list', renderer='list.jinja2')
     def resume_list(self):
@@ -74,7 +102,9 @@ class ResemeView():
         user_data = {'resume_form': json.loads(user_data_json)}
         print(user_data)
 
-        form = deform.Form(self.schema, use_ajax=False)
+        form = deform.Form(self.view_schema, use_ajax=False)
+        # form.children[0].children[4] =  colander.SchemaNode(colander.String(), title="Summary")
+        # print(form.children[0].children[4])
         return {'form': form, 'user_data': user_data}
 
 
@@ -85,7 +115,7 @@ class ResemeView():
         user_id = self.request.matchdict['id']
         sample_appstruct={'resume_form': {'last_name': 'مهدوی', 'mobile': '09106853582', 'password': '1', 'email': 's.h.mahdavi@chmail.ir', 'first_name': 'سید حمید'}, 'educations': [{'degree': 'dr', 'school': 'fdsa'}, {'degree': 'fdsfdsa', 'school': 'dd'}]}
 
-        form = deform.Form(self.schema, use_ajax=False, action=self.request.route_url('resume_edit', id=user_id))
+        form = deform.Form(self.edit_schema, use_ajax=False, action=self.request.route_url('resume_edit', id=user_id))
         form.buttons.append(deform.Button(name='submit', title='submit'))
 
         if self.request.POST:
@@ -106,6 +136,7 @@ class ResemeView():
                 user.first_name = appstruct['resume_form']['first_name']
                 user.last_name = appstruct['resume_form']['last_name']
                 user.mobile = appstruct['resume_form']['mobile']
+                user.summary = appstruct['resume_form']['summary']
 
                 # for edu in appstruct['profile']['mobile']['educations']:
 

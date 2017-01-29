@@ -33,6 +33,8 @@ class User(Document):
     skills = ListField(DictField())
     experiences = ListField(DictField())
 
+    summary = StringField(max_length=1024)
+
 
 
     # @property
