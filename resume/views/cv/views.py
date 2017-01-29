@@ -44,7 +44,7 @@ class ResemeView():
             mobile = colander.SchemaNode(colander.String(), title="Mobile", missing='')
             summary = colander.SchemaNode(
                 colander.String(),
-                widget=widget.RichTextWidget(options={"mode": "exact", "plugins": [
+                widget=widget.RichTextWidget(delayed_load=True,options={"mode": "exact", "plugins": [
                     'advlist autolink lists link image charmap print preview anchor',
                     'searchreplace visualblocks code fullscreen',
                     'insertdatetime media table contextmenu paste code'
@@ -102,7 +102,7 @@ class ResemeView():
         user_data = {'resume_form': json.loads(user_data_json)}
         print(user_data)
 
-        form = deform.Form(self.view_schema, use_ajax=False)
+        form = deform.Form(self.edit_schema, use_ajax=False)
         # form.children[0].children[4] =  colander.SchemaNode(colander.String(), title="Summary")
         # print(form.children[0].children[4])
         return {'form': form, 'user_data': user_data}
