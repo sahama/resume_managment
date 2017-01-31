@@ -1,4 +1,4 @@
-from pyramid.view import view_config
+from pyramid.view import view_config, forbidden_view_config
 from resume.models import User
 import colander
 import deform
@@ -12,7 +12,7 @@ from pyramid.security import (
 
 
 
-@view_config(route_name='register', renderer='templates/register.jinja2')
+@view_config(route_name='register', renderer='templates/register.jinja2', permission='view')
 def regsiter_view(context, request):
 
     class Register(colander.Schema):
@@ -47,20 +47,18 @@ def regsiter_view(context, request):
                 user = User()
                 user.email = appstruct['register']['email']
                 user.password = appstruct['register']['password']
-                user.mobile = '123'
+                user.first_name = 'new'
+                user.last_name = 'user'
                 user.save()
                 request.message.add('your registration complete')
             else:
                 request.message.add('this email address already token')
 
-    for i in User.objects:
-        print(dir(i))
-        print(i.id)
 
     return {'project': 'resume', 'form': form}
 
-
-@view_config(route_name='login', renderer='templates/login.jinja2')
+@forbidden_view_config(renderer='templates/login.jinja2')
+@view_config(route_name='login', renderer='templates/login.jinja2', permission='view')
 def login_view(context, request):
 
     class Login(colander.Schema):
@@ -91,10 +89,10 @@ def login_view(context, request):
             print('no validate')
         if appstruct:
             user = User.objects(email=appstruct['login']['email'])
-            if user[0].check_password(appstruct['login']['password']):
+            if user and user[0].check_password(appstruct['login']['password']):
                 request.message.add('login')
 
-                headers = remember(request, user[0].id)
+                headers = remember(request, str(user[0].id))
             else:
                 headers = forget(request)
                 request.message.add('not login')
@@ -106,8 +104,10 @@ def login_view(context, request):
     return {'form': form}
 
 
-@view_config(route_name='logout')
+@view_config(route_name='logout', permission='view')
 def logout_view(context, request):
     headers = forget(request)
     request.session.invalidate()
     return HTTPFound(location=request.route_url('home'), headers=headers)
+
+

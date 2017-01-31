@@ -11,6 +11,17 @@
 
 <script type="text/javascript" src="{{ request.static_url('resume:static/js/main.js') }}"></script>
 
+{% if form %}
+{% for css in form.get_widget_resources()['css'] %}
+        <link rel="stylesheet" href="{{ request.static_url(css) }}" type="text/css" />
+    {% endfor %}
+
+
+    {% for js in form.get_widget_resources()['js'] %}
+        <script type="text/javascript" src="{{ request.static_url(js) }}"></script>
+    {% endfor %}
+{% endif %}
+
 
 <link rel="stylesheet" href="{{ request.static_url('resume:static/css/template.css') }}">
 

@@ -6,3 +6,7 @@ def includeme(config):
     config.add_route('translate', '/translate')
     config.add_route('login', '/login') # id user_group exp_date class_service
     config.add_route('logout', '/logout') # id user_group exp_date class_service
+    config.add_route('resume_list', '/resume') # id user_group exp_date class_service
+    config.add_route('resume_edit', '/resume/{id}/edit', factory="resume.views.cv.resource:Factory") # id user_group exp_date class_service
+    config.add_route('resume_view', '/resume/{id}') # id user_group exp_date class_service
+    config.add_route('edit_profile', '/edit_profile')

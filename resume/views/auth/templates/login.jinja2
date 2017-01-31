@@ -1,16 +1,20 @@
 {% extends main_template %}
 
 {% block content %}
-        {% for css in form.get_widget_resources()['css'] %}
-        <link rel="stylesheet" href="{{ request.static_url(css) }}" type="text/css" />
-    {% endfor %}
-
-
-    {% for js in form.get_widget_resources()['js'] %}
-        <script type="text/javascript" src="{{ request.static_url(js) }}"></script>
-    {% endfor %}
+{#        {% for css in form.get_widget_resources()['css'] %}#}
+{#        <link rel="stylesheet" href="{{ request.static_url(css) }}" type="text/css" />#}
+{#    {% endfor %}#}
+{##}
+{##}
+{#    {% for js in form.get_widget_resources()['js'] %}#}
+{#        <script type="text/javascript" src="{{ request.static_url(js) }}"></script>#}
+{#    {% endfor %}#}
 
     {{ form.render() | safe }}
+
+    <div class="form-group">
+    or <a href="{{ request.route_url('register') }}"> register </a>
+    </div>
 
 {% endblock content %}
 {% block title %}
