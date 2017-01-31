@@ -95,7 +95,7 @@ class ResemeView():
     @view_config(route_name='resume_view', renderer='view.jinja2')
     def resume_view(self):
         user_id = self.request.matchdict['id']
-        user = User.objects(id=user_id)[0]
+        user = User.objects(id=user_id).first()
 
 
         user_data_json = user.to_json()
@@ -113,7 +113,7 @@ class ResemeView():
     @view_config(route_name='resume_edit', renderer='edit.jinja2', permission='edit')
     def resume_edit(self):
         user_id = self.request.matchdict['id']
-        sample_appstruct={'resume_form': {'last_name': 'مهدوی', 'mobile': '09106853582', 'password': '1', 'email': 's.h.mahdavi@chmail.ir', 'first_name': 'سید حمید'}, 'educations': [{'degree': 'dr', 'school': 'fdsa'}, {'degree': 'fdsfdsa', 'school': 'dd'}]}
+        # sample_appstruct={'resume_form': {'last_name': 'مهدوی', 'mobile': '09106853582', 'password': '1', 'email': 's.h.mahdavi@chmail.ir', 'first_name': 'سید حمید'}, 'educations': [{'degree': 'dr', 'school': 'fdsa'}, {'degree': 'fdsfdsa', 'school': 'dd'}]}
 
         form = deform.Form(self.edit_schema, use_ajax=False, action=self.request.route_url('resume_edit', id=user_id))
         form.buttons.append(deform.Button(name='submit', title='submit'))
