@@ -12,9 +12,9 @@ def group_finder(userid, request):
 
     groups = []
     if userid:
-        user = User.objects(id=userid)
+        user = User.objects(id=userid).first()
         # user = request.dbsession.query(User).filter_by(username = userid).one()
-        groups = user[0].groups
+        groups = user.groups
     return groups
 
 
